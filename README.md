@@ -1,4 +1,5 @@
 # TTP223Row Arduino Library by Hamidreza Milaninia [ARDUnia]
+[Hamidreza Milaninia – Personal Website](https://hrmnia.com/)
 
 A robust, non-blocking Arduino library designed to process complex gestures from a row of 2 to 5 inline TTP223 capacitive touch sensors.
 
