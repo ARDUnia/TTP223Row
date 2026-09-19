@@ -1,0 +1,52 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  host-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build host tests
+        run: >-
+          g++ -std=c++11 -Wall -Wextra -Werror
+          -Itest/fakes -I. TTP223Row.cpp test/test_gestures.cpp
+          -o test_gestures
+      - name: Run host tests
+        run: ./test_gestures
+
+  compile-examples:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        target:
+          - core: arduino:avr
+            fqbn: arduino:avr:uno
+            url: ""
+          - core: esp8266:esp8266
+            fqbn: esp8266:esp8266:nodemcuv2
+            url: https://arduino.esp8266.com/stable/package_esp8266com_index.json
+          - core: esp32:esp32
+            fqbn: esp32:esp32:esp32
+            url: https://espressif.github.io/arduino-esp32/package_esp32_index.json
+    steps:
+      - uses: actions/checkout@v4
+      - uses: arduino/setup-arduino-cli@v2
+      - name: Install board core
+        shell: bash
+        run: |
+          arduino-cli config init --overwrite
+          if [ -n "${{ matrix.target.url }}" ]; then
+            arduino-cli config add board_manager.additional_urls "${{ matrix.target.url }}"
+          fi
+          arduino-cli core update-index
+          arduino-cli core install "${{ matrix.target.core }}"
+      - name: Compile all examples
+        shell: bash
+        run: |
+          for sketch in examples/*; do
+            arduino-cli compile --fqbn "${{ matrix.target.fqbn }}" --library . "$sketch"
+          done

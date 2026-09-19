@@ -1,0 +1,28 @@
+{
+  "name": "TTP223Row",
+  "version": "1.1.0",
+  "description": "A non-blocking gesture library for linear TTP223 capacitive touch sensor rows.",
+  "keywords": [
+    "arduino",
+    "ttp223",
+    "capacitive-touch",
+    "gesture",
+    "swipe"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ARDUnia/TTP223Row.git"
+  },
+  "authors": [
+    {
+      "name": "Hamidreza Milaninia",
+      "url": "https://hrmnia.com/",
+      "maintainer": true
+    }
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/ARDUnia/TTP223Row",
+  "frameworks": "arduino",
+  "platforms": "*",
+  "headers": "TTP223Row.h"
+}

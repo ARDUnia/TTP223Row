@@ -1,3 +1,6 @@
 TTP223Row	KEYWORD1
 begin	KEYWORD2
+isValid	KEYWORD2
+setTiming	KEYWORD2
+readGesture	KEYWORD2
 HowTouch	KEYWORD2
